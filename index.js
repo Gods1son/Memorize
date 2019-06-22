@@ -329,6 +329,7 @@ function clickBox(box){
     
     if($("#checkSounds").is(":checked")){
         var audio = $('audio').get(1);
+        audio.currentTime = 0;
         audio.play();
     }
     
@@ -380,6 +381,7 @@ function removeBox(box){
     
     if($("#checkSounds").is(":checked")){
         var audio = $('audio').get(1);
+        audio.currentTime = 0;
         audio.play();
     }
     
