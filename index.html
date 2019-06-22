@@ -1,0 +1,107 @@
+<html>
+	<head>
+        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+        <script src="jquery.min.js"></script>
+        <script src="fireworks.js"></script>
+		<script src="index.js"></script>
+		
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <link href="index.css" type="text/css" rel="stylesheet"/>
+    </head>
+	<body>
+		<div id="settingsPage">
+            <div class="settingsSpan" id="settingsHeader">
+                <span>Settings</span>
+                <div id="closeSettings" onclick="toggleSettings()"><i>&lt;&lt; Close &lt;&lt;</i></div>
+            </div>
+            
+            <div class="settingsLine">
+                <div class="settingsTag">Alphabets</div>
+                <label class="switch" id="switchAlpha">
+                    <input type="checkbox" id="checkAlpha">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            
+             <div class="settingsLine">
+                <div class="settingsTag">Light theme</div>
+                <label class="switch" id="switchLight">
+                    <input type="checkbox" id="checkLight">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            
+            <div class="settingsLine">
+                <div class="settingsTag">Sounds</div>
+                <label class="switch" id="switchSounds">
+                    <input type="checkbox" id="checkSounds">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            
+            <div class="bottomSettingsLine">
+            
+                <button class="resetGame" onclick="resetGame();">Restart Afresh</button>
+            </div>
+            
+        </div>
+        
+        <div class="splash">
+            <div class="splashCont">
+                <div id="memorize"><span>Memorize...</span></div>
+                <div id="slogan"><span>How much and how fast can you memorize?</span></div>
+            </div>
+        </div>
+        
+        <div id="playAgain">
+            <div id="button">
+                <button id="playAgainButton" onclick="clearFire()">Again?</button>
+            </div>
+        </div>
+        
+        <div id="dash">
+            <div class="halfLeft">
+                <span>Level: </span><span id="elements" class="note"></span>
+            </div>
+            
+            <div class="halfRight align-right">
+                <span id="remainToPass" class="note"></span><span> wins left to proceed</span> 
+            </div>
+        </div>
+        
+        
+        <div class="start">
+            <button class="startButton" onclick="toggleSettings()">Settings</button>
+            <button onclick="generateNumbers()" class="startButton right">Begin</button>
+        </div>
+        
+        <div id="boxes"></div>
+       <div id="test">
+           <!--<span id="testAns"></span> -->
+           <button onclick="clue()" id="help">Help Me!!!</button><span id="helpDash"> - </span><span id="helpCount"></span>
+        </div>
+        
+        <div id="rightAnsPar" class="dynBoxes">
+            <div class="ansTextP">
+                <div class="ansText">Right answer:</div>
+            </div>
+            <div id="rightAns"></div>
+        </div>
+        
+        <div class="dynBoxes">
+            <div class="ansTextP">
+                <div class="ansText">Your answer:</div>
+            </div>
+            <div id="answers"></div>
+        
+        </div>
+        
+        <audio style="display:none;" id="background" loop>
+            <source src="sounds/background.mp3" type="audio/mp3">
+        </audio>
+        <audio style="display:none;" id="keys">
+            <source src="sounds/click.mp3" type="audio/mp3">
+        </audio>
+
+	</body>
+</html>
