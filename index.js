@@ -49,6 +49,11 @@ $(document).ready(function(){
         switchTheme(showLight);
     })
     
+    $(window).on("blur",function(){
+        var audio = $('audio').get(0);
+        audio.pause();
+    })
+    
     $(window).on("click", function(e){
         if(e.target.classList[0] == "startButton"){
             return;
