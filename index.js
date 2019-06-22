@@ -35,8 +35,7 @@ var maxCards = 26;
 var showLetters = false;
 var letters = [];
 var help = 3;
-
-        
+       
 
 $(document).ready(function(){
     
@@ -48,11 +47,7 @@ $(document).ready(function(){
         var showLight = $("#checkLight").is(":checked");
         switchTheme(showLight);
     })
-    
-    $(window).on("blur",function(){
-        var audio = $('audio').get(0);
-        audio.pause();
-    })
+    document.addEventListener("pause", onPause, false);
     
     $(window).on("click", function(e){
         if(e.target.classList[0] == "startButton"){
@@ -125,6 +120,11 @@ $(document).ready(function(){
     letters = genCharArray('a', 'z');
     letters.unshift("");
 })
+
+function onPause(){
+    var audio = $('audio').get(0);
+    audio.pause();
+} 
 
 function showAnimation(){
     changeColor();
