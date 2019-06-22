@@ -103,6 +103,10 @@ $(document).ready(function(){
         var wantSounds = $("#checkSounds").is(":checked");
         wantSounds = wantSounds == true ? 1 : 0;
         localStorage.setItem("wantSound", wantSounds);
+        if(wantSounds == 0){
+            var audio = $('audio').get(0);
+            audio.pause();
+        }
     })
     
     $("#switchAlpha").on("click", function(){
