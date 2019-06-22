@@ -168,7 +168,12 @@ function generateNumbers(){
     }
     
     if($("#checkSounds").is(":checked")){
+        var win = $("#background").find("source").attr("src");
         var audio = $('audio').get(0);
+        if(win.indexOf("winner") > -1){
+            $("#background").find("source").attr("src","sounds/background.mp3");
+            audio.load();
+        }
         audio.play();
     }
     
@@ -406,6 +411,13 @@ function checkAnswer(){
                        //alert("moved to new level"); 
                        showPassButton("Proceed to next level", true);
                        help += 3;
+                       
+                       if($("#checkSounds").is(":checked")){
+                           var audio = $('audio').get(0);
+                           $("#background").find("source").attr("src","sounds/winner.mp3");
+                            audio.load();
+                            audio.play();
+                        }
                    }
                   
                   elements += 1;
