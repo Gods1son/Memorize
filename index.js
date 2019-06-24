@@ -38,7 +38,7 @@ var help = 3;
        
 
 $(document).ready(function(){
-    
+    initializeAnalytics();
     showAnimation();
        
     $("#help, #helpDash, #helpCount").hide();
@@ -402,6 +402,10 @@ function checkAnswer(){
     var correctAnswer = finalAnswer.split("*").join("");
     var userAnswer = $(".ans").text();
     if(correctAnswer == userAnswer){
+        
+        window.FirebasePlugin.setUserId("user_id");
+        window.FirebasePlugin.setUserProperty("currentStreak", currentStreak);        
+        
         if(needToPass() != (currentStreak + 1)){
         	//alert("correct");
             showPassButton("Correct", false);
@@ -620,4 +624,14 @@ function resetGame(){
         
         //generateNumbers();
     }
+}
+
+function initializeAnalytics() {
+    window.FirebasePlugin.setAnalyticsCollectionEnabled(true); // Enables analytics collection
+    window.FirebasePlugin.setScreenName("Home");
+
+    //window.FirebasePlugin.logEvent("select_content", { content_type: "page_view", item_id: "home" });
+
+     //window.FirebasePlugin.setUserProperty("name", value);
+     //window.FirebasePlugin.setUserId("user_id");
 }
