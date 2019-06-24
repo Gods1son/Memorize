@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "547447926954",
+    "firebase_url": "https://memorize-71697.firebaseio.com",
+    "project_id": "memorize-71697",
+    "storage_bucket": "memorize-71697.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547447926954:android:589756b207ff027c",
+        "android_client_info": {
+          "package_name": "com.gods1son.memorize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547447926954-4mq60722ic5oag6jek3bgc2i3vnhua1p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6ZGgrb-9C8ZAUmGZQATiWk-wzV16c1rc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547447926954-4mq60722ic5oag6jek3bgc2i3vnhua1p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
