@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget
-        id="com.gods1son.memorize"
+        id="com.phonegap.Memorize"
         version="1.0.1"
         xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0">
@@ -22,10 +22,4 @@
     <icon height="48" platform="windows" src="android-icon-48x482.png" width="48"/>
     <!--<preference name="orientation" value="portrait"/>-->
     <plugin name="cordova-plugin-dialogs" source="npm"/>
-    <plugin name="cordova-plugin-exitapp" source="npm"/>
-    <plugin name="cordova-plugin-firebase" spec="^2.0.0" />
-    
-    <platform name="android">
-        <resource-file src="google-services.json" target="google-services.json" />
-    </platform>
 </widget>
