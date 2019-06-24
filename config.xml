@@ -23,4 +23,9 @@
     <!--<preference name="orientation" value="portrait"/>-->
     <plugin name="cordova-plugin-dialogs" source="npm"/>
     <plugin name="cordova-plugin-exitapp" source="npm"/>
+    <plugin name="cordova-plugin-firebase" spec="^2.0.0" />
+    
+    <platform name="android">
+        <resource-file src="google-services.json" target="app/google-services.json" />
+    </platform>
 </widget>
