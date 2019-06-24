@@ -35,6 +35,7 @@ var maxCards = 26;
 var showLetters = false;
 var letters = [];
 var help = 3;
+var memorizeID = 0;
        
 
 $(document).ready(function(){
@@ -403,16 +404,13 @@ function checkAnswer(){
     var userAnswer = $(".ans").text();
     if(correctAnswer == userAnswer){
         
-        window.FirebasePlugin.setUserId("user_id");
-        window.FirebasePlugin.setUserProperty("currentStreak", currentStreak);        
-        
         if(needToPass() != (currentStreak + 1)){
         	//alert("correct");
             showPassButton("Correct", false);
             help += 2;
         }
-        
          currentStreak += 1;
+        
         $("#remainToPass").text(needToPass() - currentStreak);
                if(needToPass() == currentStreak){
                    if(elements >= maxCards){
@@ -421,6 +419,7 @@ function checkAnswer(){
                    }else{
                        //alert("moved to new level"); 
                        showPassButton("Proceed to next level", true);
+                       ga('send', 'event', 'Memorize', 'play', 'Level', currentStreak);
                        help += 3;
                        
                        if($("#checkSounds").is(":checked")){
@@ -627,11 +626,28 @@ function resetGame(){
 }
 
 function initializeAnalytics() {
-    window.FirebasePlugin.setAnalyticsCollectionEnabled(true); // Enables analytics collection
-    window.FirebasePlugin.setScreenName("Home");
 
-    //window.FirebasePlugin.logEvent("select_content", { content_type: "page_view", item_id: "home" });
-
-     //window.FirebasePlugin.setUserProperty("name", value);
-     //window.FirebasePlugin.setUserId("user_id");
+    if(localStorage.getItem("memorizeID") == undefined){
+        //ga('create', 'AIzaSyCJsMRFoPU0P16uFvuyj1o0tODaQah0FbU', 'auto');
+        ga('create', 'AIzaSyBS0B3trtitRmmPv0cfK24VgDhQXwTfoxE', {
+            'storage': 'none'
+        });
+        // Gets the client ID of the default tracker and logs it.
+        ga(function(tracker) {
+          memorizeID = tracker.get('clientId');
+          localStorage.setItem("memorizeID", memorizeID);
+        });
+    }else{
+        memorizeID = localStorage.getItem("memorizeID");
+        ga('create', 'AIzaSyBS0B3trtitRmmPv0cfK24VgDhQXwTfoxE', {
+            'storage': 'none',
+            'clientId': memorizeID
+        });
+    }
+    
+    //page opened
+        ga('send', 'screenview', {
+          'appName': 'Memorize',
+          'screenName': 'Home'
+        });    
 }
