@@ -471,11 +471,11 @@ function clue(){
     $("#helpCount").text(help);
     
     var helpAvail = false;
-    var correctAnswer = finalAnswer.split("*").join("").split("");
+    var correctAnswer = finalAnswer.join("*").replaceAll("*","").split("");
     var userWrongAnswer = $(".ans").text();
     var userAnswer = $(".ans").text().split("");
     if(userAnswer == ""){
-        var first = finalAnswer.split("*").join("").split("")[0];
+        var first = finalAnswer.join("*").replaceAll("*","").split("");[0];
         $("#box-" + first).click();
         return;
     }
