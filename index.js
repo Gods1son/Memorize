@@ -1,3 +1,8 @@
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
+
 function shuffle(a) {
     var j, x, i;
     for (i = a.length - 1; i > 0; i--) {
@@ -170,7 +175,8 @@ function stopAnimations(){
 function generateNumbers(){
     if($("#firework-canvas").length > 0){
         $("#firework-canvas").remove();
-   	    cancelAnimationFrame(loop);    
+   	    cancelAnimationFrame(loop);  
+        allOptions = [];
     }
     
     if($("#checkSounds").is(":checked")){
@@ -186,7 +192,7 @@ function generateNumbers(){
     elements = parseInt($("#elements").text());
     elements = elements > maxCards ? maxCards : elements;
     stopAnimations();
-    allOptions = [];
+    //allOptions = [];
     finalShuffle = [];
     answer = [];
     $("#answers").empty();
@@ -235,65 +241,25 @@ function generateNumbers(){
     ans = answer.join("");
     //allOptions.push(ans);
     options = elements == 2 ? 2 : origOptions;
-    generateOptions();
-    finalAnswer = allOptions[allOptions.length - 1];
-    //$("#testAns").text(finalAnswer);
-    finalShuffle = shuffle(allOptions);
-    //createOptions(finalShuffle);
+    finalAnswer = generateOptions();
     timing = setTimeout(blinkLight, seconds);
 }
 
 function generateOptions(){
-    while(allOptions.length != options){
-        var newOpt = shuffle(answer);
-        newOpt = newOpt.join("");
-        if(allOptions.indexOf(newOpt) == -1){
-            allOptions.push(newOpt);
-        }
+    var final = shuffle(answer);
+    var fin = final.join("*").replaceAll("*","");
+    if(allOptions.indexOf(fin) > -1){
+        generateOptions();
     }
+    
+    return final;
 }
 
-function createOptions(create){
-   for(var i = 0; i < create.length; i++) {
-       var passed = false;
-       passed = create[i] == finalAnswer ? true : passed;
-       var opt = $("<button class='option " + passed + "'>" + create[i].split("").join("**") + "</button>");
-       $(opt).on("click", function(e){
-           e.preventDefault();
-           if($(this).hasClass(true)){
-               alert("passed");
-               $(".box").removeClass("select");
-               currentStreak += 1;
-               $("#remainToPass").text(elements - currentStreak);
-               if(elements == currentStreak){
-                  alert("moved to new level"); 
-                  elements += 1
-                    $("#elements").text(elements);
-                    currentStreak = 0;
-                    $("#remainToPass").text(elements - currentStreak);
-                   
-               }
-               index = 0;
-               generateNumbers();
-           }else{
-               alert("missed");
-               generateNumbers();
-           }
-       })
-       $("#options").append(opt);
-   }
-}
+var colors = ["#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000","#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000","#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000","#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000","#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000","#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000",];
 
-var color = ["#000022","#191938","#32324e","#f40000","#c10000","#58C9C9","#000022","#191938","#32324e","#f40000","#c10000","#0000220",
-             "#000022","#191938","#32324e","#f40000","#c10000","#58C9C9","#000022","#191938","#32324e","#f40000","#c10000","#0000220",
-             "#000022","#191938","#32324e","#f40000","#c10000","#58C9C9","#000022","#191938","#32324e","#f40000","#c10000","#0000220"];
-
-var colors1 = ["#0659a9", "#0094de", "#83c0ed", "#ff9e8b", "#fe664e","#0659a9", "#0094de", "#83c0ed", "#ff9e8b", "#fe664e","#0659a9", "#0094de", "#83c0ed", "#ff9e8b", "#fe664e","#0659a9", "#0094de", "#83c0ed", "#ff9e8b", "#fe664e","#0659a9", "#0094de", "#83c0ed", "#ff9e8b", "#fe664e","#0659a9", "#0094de", "#83c0ed", "#ff9e8b", "#fe664e" ];
-
-var colors = ["#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000","#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000","#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000","#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000","#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000","#192EB5", "#1D65A6", "#72A2C0","#f40000", "#c10000",]
 var index = 0;
 function blinkLight(){
-    var seq = finalAnswer.split("*");
+    var seq = finalAnswer; //.split("*");
     if(index <= elements - 1){
         //$(".box").removeClass("select");
         $("#box-" + seq[index]).addClass("select");
@@ -400,10 +366,10 @@ function removeBox(box){
 }
 
 function checkAnswer(){
-    var correctAnswer = finalAnswer.split("*").join("");
+    var correctAnswer = finalAnswer.join("").replaceAll("*","");
     var userAnswer = $(".ans").text();
     if(correctAnswer == userAnswer){
-        
+        allOptions.push(correctAnswer);
         if(needToPass() != (currentStreak + 1)){
         	//alert("correct");
             showPassButton("Correct", false);
@@ -419,6 +385,7 @@ function checkAnswer(){
                    }else{
                        //alert("moved to new level"); 
                        showPassButton("Proceed to next level", true);
+                       allOptions = [];
                        ga('send', 'event', 'Memorize', 'play', 'Level', currentStreak);
                        help += 3;
                        
@@ -445,21 +412,20 @@ function checkAnswer(){
                 $("#helpCount").text(help);
                //generateNumbers();
     }else{
-        //alert("wrong");
-        //$("#answers").empty();
+        
         showRightAnswer();
-        //generateNumbers();
+        
     }
 }
 
 function showRightAnswer(){
-    var ans = finalAnswer.split("*").filter(Boolean);
+    var ans = finalAnswer; //.filter(Boolean);
     var width = Math.ceil((($("#rightAns").width() / $(window).width()) * 100) * 0.72);
     width = Math.floor(width/elements);
     width = width > 10 ? 10 : width;
     width = width < 2.8 ? 2.8 : width;
     for(var i = 0; i < ans.length; i++){
-        var box = $("<div class='ans corAns'>" + ans[i] + "</div>");
+        var box = $("<div class='ans corAns'>" + ans[i].replace("*","") + "</div>");
         $(box).css("width", width + "vw");
         var font = (width/3) < 2.5 ? 2.5 : (width/3);
         $(box).css("font-size", font + "vw");
@@ -619,9 +585,6 @@ function resetGame(){
         $("#answers").empty();
         $("#rightAns").empty();
         $(".ansText").hide();
-
-        
-        //generateNumbers();
     }
 }
 
