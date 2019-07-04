@@ -328,9 +328,9 @@ button:focus {
     position: absolute;
     z-index: 2;
     display: none;
-    height: 60vh;
+    /*height: 60vh;*/
     width: 97.5%;
-    top: 38vh;
+    top: 65vh;
     text-align: center;
 }
 
