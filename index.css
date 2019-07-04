@@ -257,7 +257,15 @@ button:focus {
     color:darkblue;
 }
 
+.dynBoxesPar{
+    width: 95vw;
+    position: relative;
+    overflow-x: scroll;
+}
+
 .dynBoxes{
+    position: relative;
+    width: inherit;
     height: 11vh;
     margin: 2px 0;
 }
